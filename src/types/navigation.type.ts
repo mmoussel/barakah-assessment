@@ -6,7 +6,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 
 export type RootStackParamList = {
   TabsStack: NavigatorScreenParams<TabStackParamList>;
-  Product: { productId: string };
+  Product: { productId: number };
 };
 
 export type TabStackParamList = {
