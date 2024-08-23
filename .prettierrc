@@ -1,0 +1,9 @@
+{
+  "prettier/prettier": [
+    "off",
+    {
+      "singleQuote": true,
+      "parser": "flow"
+    }
+  ]
+}
