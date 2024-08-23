@@ -7,6 +7,7 @@ import { TabStackParamList } from "@/types/navigation.type";
 import { useColors } from "@/hooks/colors.hook";
 import { generateIconNameByRouteName } from "@/utils/tab-bar.util";
 import { HomeScreen } from "@/screens/home.screen";
+import { CartScreen } from "@/screens/cart.screen";
 
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
@@ -46,7 +47,7 @@ export const TabsStack = () => {
       <Tab.Screen name="Catalog" component={MockScreen} />
       <Tab.Screen
         name="Cart"
-        component={MockScreen}
+        component={CartScreen}
         options={{
           tabBarBadge: 5,
           tabBarBadgeStyle: { backgroundColor: colors.text },
