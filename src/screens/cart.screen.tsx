@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Section } from "@/components/shared/section.component";
 import { FlatList, Text, View } from "react-native";
 import { Spacer } from "@/components/shared/spacer.component";
 import { CartHeader } from "@/components/cart/header.component";
 import { Checkbox } from "@/components/shared/checkbox.component";
-import { useGetProductsQuery } from "@/redux/apis/product.api";
 import { CartItem } from "@/components/cart/cart-item.component";
-import { Product } from "@/types/product.type";
+import { CartProduct } from "@/types/product.type";
 import { Button } from "@/components/shared/button.component";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export const CartScreen = () => {
-  const { data } = useGetProductsQuery();
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (data) {
-      setSelectedIds(data.map((item) => item.id));
-    }
-  }, [data]);
+  const [selectedIds, setSelectedIds] = useState<number[]>(
+    cartItems.map((item) => item.product.id),
+  );
 
   const handleSelectChange = (productId: number, value: boolean) => {
     setSelectedIds((prev) => {
@@ -34,26 +31,24 @@ export const CartScreen = () => {
   const handleSelectAllChange = (value: boolean) => {
     setSelectedIds(() => {
       if (value) {
-        return data.map((item) => item.id);
+        return cartItems.map((item) => item.product.id);
       } else {
         return [];
       }
     });
   };
 
-  const renderItem = ({ item }: { item: Product }) => {
+  const renderItem = ({ item }: { item: CartProduct }) => {
     return (
       <CartItem
-        cartItem={{ product: item, quantity: 1 }}
+        cartItem={item}
         onSelectChange={(value) => {
-          handleSelectChange(item.id, value);
+          handleSelectChange(item.product.id, value);
         }}
-        selected={!!selectedIds.includes(item.id)}
+        selected={!!selectedIds.includes(item.product.id)}
       />
     );
   };
-
-  if (!data) return null;
 
   return (
     <View className="bg-card flex-1">
@@ -62,18 +57,20 @@ export const CartScreen = () => {
       <Spacer size={2} />
 
       <Section className="bg-background rounded-t-3xl pt-4 flex-1">
-        <Checkbox
-          onChange={handleSelectAllChange}
-          label="Select all"
-          checked={selectedIds.length === data.length}
-        />
+        {!!cartItems.length && (
+          <Checkbox
+            onChange={handleSelectAllChange}
+            label="Select all"
+            checked={selectedIds.length === cartItems.length}
+          />
+        )}
 
         <Spacer />
 
         <FlatList
-          data={data}
+          data={cartItems}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.product.id.toString()}
           ListEmptyComponent={
             <Text className="font-bold">Your cart is empty.</Text>
           }
