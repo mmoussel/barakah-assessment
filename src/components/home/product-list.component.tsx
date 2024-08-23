@@ -97,7 +97,7 @@ export const ProductList: FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  listContainer: { flexGrow: 1 },
+  listContainer: { flexGrow: 1, paddingBottom: 16 },
   productContainer: {
     flex: 1,
   },
