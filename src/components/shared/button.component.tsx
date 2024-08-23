@@ -27,14 +27,12 @@ export const Button: FC<ButtonProps> = ({
       disabled={disabled || isLoading}
       activeOpacity={0.8}
       className={clsx(
-        "bg-primary items-center justify-center p-4 rounded",
+        "bg-primary items-center justify-center p-4 rounded-xl",
         fullWidth ? "w-full" : "",
         layoutClassName,
       )}
     >
-      <Text
-        className={clsx("text-background font-bold text-base", labelClassName)}
-      >
+      <Text className={clsx("text-text font-bold text-base", labelClassName)}>
         {children}
       </Text>
     </TouchableOpacity>
