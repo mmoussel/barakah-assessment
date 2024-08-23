@@ -6,6 +6,7 @@ import Icon from "@expo/vector-icons/Ionicons";
 import { TabStackParamList } from "@/types/navigation.type";
 import { useColors } from "@/hooks/colors.hook";
 import { generateIconNameByRouteName } from "@/utils/tab-bar.util";
+import { HomeScreen } from "@/screens/home.screen";
 
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
@@ -41,7 +42,7 @@ export const TabsStack = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={MockScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Catalog" component={MockScreen} />
       <Tab.Screen
         name="Cart"

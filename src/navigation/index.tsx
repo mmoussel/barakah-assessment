@@ -3,13 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "@/types/navigation.type";
 import { TabsStack } from "./tabs.navigation";
-import { Text } from "react-native";
+import { ProductScreen } from "@/screens/product.screen";
 
 const Stack = createStackNavigator<RootStackParamList>();
-
-const MockScreen = () => {
-  return <Text>This Mock Screen</Text>;
-};
 
 export const Navigation = () => {
   return (
@@ -21,7 +17,7 @@ export const Navigation = () => {
         }}
       >
         <Stack.Screen name="TabsStack" component={TabsStack} />
-        <Stack.Screen name="Product" component={MockScreen} />
+        <Stack.Screen name="Product" component={ProductScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
