@@ -16,6 +16,7 @@ import { useColors } from "@/hooks/colors.hook";
 import { Layout } from "@/components/shared/layout.component";
 import { addToCart } from "@/redux/slices/cart.slice";
 import { useDispatch } from "react-redux";
+import { FloatingActions } from "@/components/product/floating-buttons";
 
 type NavigationProps = RootStackScreenProps<"Product">;
 
@@ -115,6 +116,7 @@ export const ProductScreen = () => {
           <Spacer />
         </View>
       </Section>
+      <FloatingActions />
     </View>
   );
 };
