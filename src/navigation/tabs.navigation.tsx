@@ -52,7 +52,7 @@ export const TabsStack = () => {
         name="Cart"
         component={CartScreen}
         options={{
-          tabBarBadge: cartItems.length ?? undefined,
+          tabBarBadge: cartItems.length || undefined,
           tabBarBadgeStyle: { backgroundColor: colors.text },
         }}
       />

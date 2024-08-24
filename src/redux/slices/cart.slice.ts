@@ -1,5 +1,6 @@
 import { CartProduct, Product } from "@/types/product.type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Toast from "react-native-toast-message";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -16,11 +17,23 @@ const cartSlice = createSlice({
       } else {
         state.cartItems.push({ product: item, quantity: 1, selected: true });
       }
+
+      Toast.show({
+        type: "success",
+        text1: "Successfully Added 🚀",
+        text2: "Product successfully added to your cart.",
+      });
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.cartItems = state.cartItems.filter(
         (item) => item.product.id !== action.payload,
       );
+
+      Toast.show({
+        type: "success",
+        text1: "Successfully Removed 🚀",
+        text2: "Product successfully removed from your cart.",
+      });
     },
     clearCart: (state) => {
       state.cartItems = [];
@@ -37,6 +50,12 @@ const cartSlice = createSlice({
       if (existingItem) {
         existingItem.quantity = quantity;
       }
+
+      Toast.show({
+        type: "success",
+        text1: "Successfully Updated 🚀",
+        text2: "Product successfully updated.",
+      });
     },
 
     toggleSelectCartItem: (state, action: PayloadAction<number>) => {
