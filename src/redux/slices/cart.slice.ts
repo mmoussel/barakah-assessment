@@ -2,9 +2,17 @@ import { CartProduct, Product } from "@/types/product.type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Toast from "react-native-toast-message";
 
+type CartState = {
+  cartItems: CartProduct[];
+};
+
+const initialState: CartState = {
+  cartItems: [],
+};
+
 const cartSlice = createSlice({
   name: "cart",
-  initialState: { cartItems: [] } as { cartItems: CartProduct[] },
+  initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
       const item = action.payload;

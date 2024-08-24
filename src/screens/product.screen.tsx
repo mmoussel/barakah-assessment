@@ -15,15 +15,15 @@ import { Spacer } from "@/components/shared/spacer.component";
 import { useColors } from "@/hooks/colors.hook";
 import { Layout } from "@/components/shared/layout.component";
 import { addToCart } from "@/redux/slices/cart.slice";
-import { useDispatch } from "react-redux";
 import { FloatingActions } from "@/components/product/floating-buttons";
+import { useAppDispatch } from "@/hooks/app-dispatch.hook";
 
 type NavigationProps = RootStackScreenProps<"Product">;
 
 export const ProductScreen = () => {
   const { params } = useRoute<NavigationProps["route"]>();
   const colors = useColors();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { data, isLoading } = useGetProductByIdQuery(params.productId);
 

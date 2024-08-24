@@ -6,7 +6,6 @@ import AntDesignIcon from "@expo/vector-icons/AntDesign";
 import { Checkbox } from "../shared/checkbox.component";
 import { CartProduct } from "@/types/product.type";
 import { Spacer } from "../shared/spacer.component";
-import { useDispatch } from "react-redux";
 import {
   removeFromCart,
   toggleSelectCartItem,
@@ -14,6 +13,7 @@ import {
 } from "@/redux/slices/cart.slice";
 import { TabStackNavigationProps } from "@/types/navigation.type";
 import { useNavigation } from "@react-navigation/native";
+import { useAppDispatch } from "@/hooks/app-dispatch.hook";
 
 type NavigationProps = TabStackNavigationProps<"Cart">;
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
 export const CartItem: FC<Props> = ({
   cartItem: { product, quantity, selected },
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { navigate } = useNavigation<NavigationProps["navigation"]>();
 
   const handlePress = () => {

@@ -8,8 +8,7 @@ import { useColors } from "@/hooks/colors.hook";
 import { generateIconNameByRouteName } from "@/utils/tab-bar.util";
 import { HomeScreen } from "@/screens/home.screen";
 import { CartScreen } from "@/screens/cart.screen";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useCart } from "@/hooks/cart.hook";
 
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
@@ -23,7 +22,7 @@ const MockScreen = () => {
 
 export const TabsStack = () => {
   const colors = useColors();
-  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const cartItems = useCart();
 
   return (
     <Tab.Navigator

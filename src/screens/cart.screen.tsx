@@ -8,13 +8,13 @@ import { Checkbox } from "@/components/shared/checkbox.component";
 import { CartItem } from "@/components/cart/cart-item.component";
 import { CartProduct } from "@/types/product.type";
 import { Button } from "@/components/shared/button.component";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { toggleSelectAllCartItems } from "@/redux/slices/cart.slice";
+import { useAppDispatch } from "@/hooks/app-dispatch.hook";
+import { useCart } from "@/hooks/cart.hook";
 
 export const CartScreen = () => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const dispatch = useAppDispatch();
+  const cartItems = useCart();
 
   const handleSelectAllChange = (value: boolean) => {
     dispatch(toggleSelectAllCartItems(value));
