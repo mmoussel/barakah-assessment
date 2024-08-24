@@ -14,4 +14,5 @@ export interface Product {
 export interface CartProduct {
   product: Product;
   quantity: number;
+  selected: boolean;
 }

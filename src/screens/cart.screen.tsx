@@ -1,54 +1,28 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 
 import { Section } from "@/components/shared/section.component";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, ListRenderItem, Text, View } from "react-native";
 import { Spacer } from "@/components/shared/spacer.component";
 import { CartHeader } from "@/components/cart/header.component";
 import { Checkbox } from "@/components/shared/checkbox.component";
 import { CartItem } from "@/components/cart/cart-item.component";
 import { CartProduct } from "@/types/product.type";
 import { Button } from "@/components/shared/button.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { toggleSelectAllCartItems } from "@/redux/slices/cart.slice";
 
 export const CartScreen = () => {
+  const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
-  const [selectedIds, setSelectedIds] = useState<number[]>(
-    cartItems.map((item) => item.product.id),
-  );
-
-  const handleSelectChange = (productId: number, value: boolean) => {
-    setSelectedIds((prev) => {
-      if (value) {
-        return [...prev, productId];
-      } else {
-        return prev.filter((id) => id !== productId);
-      }
-    });
-  };
-
   const handleSelectAllChange = (value: boolean) => {
-    setSelectedIds(() => {
-      if (value) {
-        return cartItems.map((item) => item.product.id);
-      } else {
-        return [];
-      }
-    });
+    dispatch(toggleSelectAllCartItems(value));
   };
 
-  const renderItem = ({ item }: { item: CartProduct }) => {
-    return (
-      <CartItem
-        cartItem={item}
-        onSelectChange={(value) => {
-          handleSelectChange(item.product.id, value);
-        }}
-        selected={!!selectedIds.includes(item.product.id)}
-      />
-    );
-  };
+  const renderItem = useCallback<ListRenderItem<CartProduct>>(({ item }) => {
+    return <CartItem cartItem={item} />;
+  }, []);
 
   return (
     <View className="bg-card flex-1">
@@ -61,7 +35,7 @@ export const CartScreen = () => {
           <Checkbox
             onChange={handleSelectAllChange}
             label="Select all"
-            checked={selectedIds.length === cartItems.length}
+            checked={cartItems.findIndex((item) => !item.selected) < 0}
           />
         )}
 

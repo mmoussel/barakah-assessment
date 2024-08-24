@@ -9,21 +9,22 @@ import { Spacer } from "../shared/spacer.component";
 import { useDispatch } from "react-redux";
 import {
   removeFromCart,
+  toggleSelectCartItem,
   updateCartItemQuantity,
 } from "@/redux/slices/cart.slice";
 
 interface Props {
   cartItem: CartProduct;
-  selected?: boolean;
-  onSelectChange: (value: boolean) => void;
 }
 
 export const CartItem: FC<Props> = ({
-  cartItem: { product, quantity },
-  onSelectChange,
-  selected,
+  cartItem: { product, quantity, selected },
 }) => {
   const dispatch = useDispatch();
+
+  const handleSelectChange = () => {
+    dispatch(toggleSelectCartItem(product.id));
+  };
 
   const handleIncreaseQuantity = () => {
     dispatch(
@@ -43,7 +44,7 @@ export const CartItem: FC<Props> = ({
 
   return (
     <View className="flex-row items-center">
-      <Checkbox onChange={onSelectChange} checked={selected} />
+      <Checkbox onChange={handleSelectChange} checked={selected} />
 
       <View className="w-20 h-20 bg-card rounded-2xl p-4">
         <Image
