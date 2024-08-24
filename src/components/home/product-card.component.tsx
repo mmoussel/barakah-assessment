@@ -20,7 +20,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
   return (
     <Pressable className="flex-1" onPress={handlePress}>
-      <View className="bg-card rounded-2xl p-4 w-full aspect-square">
+      <View className="bg-card rounded-2xl p-4 w-full max-h-[70%]">
         <Image
           source={{ uri: product.image }}
           className="w-full h-full"
@@ -36,13 +36,15 @@ export const ProductCard: FC<Props> = ({ product }) => {
 
       <Spacer size={2} />
 
-      <Text className="text-text font-bold text-lg">
-        ${product.price.toFixed(2)}
-        {"  "}
+      <View className=" flex-row items-center">
+        <Text className="text-text font-bold text-lg">
+          ${product.price.toFixed(2)}
+          {"  "}
+        </Text>
         <Text className="text-subtext text-xs font-normal line-through">
           ${(product.price * 1.25).toFixed(2)}
         </Text>
-      </Text>
+      </View>
     </Pressable>
   );
 };
